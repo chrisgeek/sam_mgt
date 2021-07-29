@@ -1,17 +1,16 @@
-ActiveAdmin.register Product do
-  includes :stocks
-  permit_params :name, :quantity
+ActiveAdmin.register Company do
+  permit_params :name, :phone_no, :email, :address, :city, :state, :country
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :name, :quantity
+  # permit_params :name, :phone_no, :email, :address, :city, :state, :country
   #
   # or
   #
   # permit_params do
-  #   permitted = [:name, :quantity]
+  #   permitted = [:name, :phone_no, :email, :address, :city, :state, :country]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

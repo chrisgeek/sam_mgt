@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_132030) do
+ActiveRecord::Schema.define(version: 2021_07_23_211757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,31 @@ ActiveRecord::Schema.define(version: 2021_07_22_132030) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "middle_name"
+    t.string "phone_no"
+    t.string "email"
+    t.string "company_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_clients_on_company_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_no"
+    t.string "email"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -41,6 +66,35 @@ ActiveRecord::Schema.define(version: 2021_07_22_132030) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.integer "quantity"
+    t.bigint "product_id", null: false
+    t.string "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_sales_on_product_id"
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "name"
+    t.string "quantity"
+    t.date "arrival_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_stocks_on_product_id"
+  end
+
+  create_table "targets", force: :cascade do |t|
+    t.date "due_date"
+    t.string "status", default: "Not Achieved"
+    t.string "value"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_targets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,4 +110,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_132030) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "clients", "companies"
+  add_foreign_key "sales", "products"
+  add_foreign_key "stocks", "products"
+  add_foreign_key "targets", "users"
 end
