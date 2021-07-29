@@ -23,9 +23,11 @@ class Ability
       can :manage, Stock
       can :read, Sale
     when 'person'
-      can :manage, User, id: user.id
+      cannot :manage, User
+      can :ru, User, id: user.id
       can :manage, Sale
       can :ru, Target, user_id: user.id
     end
+    cannot :destroy, user # Not allowed to destroy yourself
   end
 end
