@@ -4,6 +4,6 @@ class Client < ApplicationRecord
   validates :last_name, presence: true
   validates :middle_name, presence: true
   validates :email, presence: true
-  validates :phone, presence: true
+  validates :phone_no, presence: true
   validates :company_name, presence: true
 end

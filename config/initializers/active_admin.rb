@@ -244,7 +244,7 @@ ActiveAdmin.setup do |config|
   #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
   #     end
   #   end
-
+  # config.on_unauthorized_access = :render 403
   # == Download Links
   #
   # You can disable download links on resource listing pages,

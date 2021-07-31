@@ -4,7 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    cannot :manage, :all # disable all privilege for unauthenticated users
+    # cannot :manage, :all # disable all privilege for unauthenticated users
 
     user ||= User.new
 
@@ -15,14 +15,18 @@ class Ability
     case user.role
     when 'admin'
       can :manage, :all
+      can :read, ActiveAdmin::Page, name: 'Dashboard'
     when 'manager'
+      can :read, ActiveAdmin::Page, name: 'Dashboard'
       can :manage, User
       can :manage, Target
       can :manage, Company
       can :manage, Client
       can :manage, Stock
+      can :manage, Product
       can :read, Sale
     when 'person'
+      can :read, ActiveAdmin::Page, name: 'Dashboard'
       cannot :manage, User
       can :ru, User, id: user.id
       can :manage, Sale
