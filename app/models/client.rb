@@ -6,4 +6,7 @@ class Client < ApplicationRecord
   validates :email, presence: true
   validates :phone_no, presence: true
   validates :company_name, presence: true
+  def to_s
+    "#{first_name} #{last_name}"
+  end
 end

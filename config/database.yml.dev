@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: sam_mgt_development
+
+#  username: postgres
+
+  # The password associated with the postgres role (username).
+#  password: 
+
+test:
+  <<: *default
+  database: bl_test
+  username: chrisgeek
+#
+production:
+  <<: *default
+  database: bl_production
+  username: brightlight
+  password: <%= ENV['brightlight_DATABASE_PASSWORD'] %>

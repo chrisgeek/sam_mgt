@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_211757) do
+ActiveRecord::Schema.define(version: 2021_08_01_132144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 2021_07_23_211757) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "activity_type"
+    t.string "name"
+    t.string "activity_for"
+    t.date "due_date"
+    t.string "detail"
+    t.string "leader"
+    t.string "member"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "clients", force: :cascade do |t|
@@ -59,6 +71,17 @@ ActiveRecord::Schema.define(version: 2021_07_23_211757) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "leads", force: :cascade do |t|
+    t.string "lead_type"
+    t.string "salesman"
+    t.date "due_date"
+    t.string "detail"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_leads_on_client_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -111,6 +134,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_211757) do
   end
 
   add_foreign_key "clients", "companies"
+  add_foreign_key "leads", "clients"
   add_foreign_key "sales", "products"
   add_foreign_key "stocks", "products"
   add_foreign_key "targets", "users"

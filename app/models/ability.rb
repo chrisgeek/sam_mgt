@@ -25,12 +25,17 @@ class Ability
       can :manage, Stock
       can :manage, Product
       can :read, Sale
+      can :read, Activity
     when 'person'
       can :read, ActiveAdmin::Page, name: 'Dashboard'
       cannot :manage, User
       can :ru, User, id: user.id
       can :manage, Sale
+      can :cru, Company
+      can :cru, Client
       can :ru, Target, user_id: user.id
+      can :manage, Activity
+      can :manage, Lead
     end
     cannot :destroy, user # Not allowed to destroy yourself
   end
